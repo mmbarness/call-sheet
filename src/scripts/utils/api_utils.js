@@ -10,10 +10,8 @@ export const searchPerson = async(name, role = 'Directing') => {
                         })
     json = await personResults.json()
     } catch(err){
-        debugger;
         console.log(err)
     }
-  debugger;
   let person
   (json.results.length > 1) 
     ? (person = json.results.filter(person => RegExp(`\\b${name}\\b`, 'gi').test(person.name)) //filter out names that dont match (case-insensitive)
@@ -45,7 +43,13 @@ export const getFilmography  = async(input, role="Director") => {
   sleep(100).then(async () => 
   resultsObj = await results.forEach(async(movie)=>{ 
     resultsObj[movie.id] = movie
-    creditsObj[movie.id] = await getMovieCredits(movie.id)
+    let credits = await getMovieCredits(movie.id).then(resp => {
+      return ({ //only returning the top half of a movies cast/crew, since they're ordered by significance
+        cast: (resp.cast).slice(0, resp.cast.length / 2),
+        crew: (resp.crew).slice(0, resp.crew.length * .75)
+      })
+    })
+    creditsObj[movie.id] = credits 
     })
   )
   return {movies: resultsObj, credits: creditsObj}
@@ -66,6 +70,6 @@ export const getMovieCredits = async (input) => {
   let credits = await fetch(credits_url, {
     method: 'GET',
   })
-  return credits.json()
+  return credits.json();
 }
 

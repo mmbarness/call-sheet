@@ -1,8 +1,7 @@
 import "regenerator-runtime/runtime";
-import * as tmdb from './utils'
+import * as tmdb from '../utils/api_utils'
 import * as _ from 'underscore'
-
-
+import { filter } from "underscore";
 
 export const allCredits = async (searchQuery, role = "Director") => { //cast and crew of every movie a director's made
     let input = searchQuery.name || searchQuery.nameId
@@ -24,6 +23,16 @@ export const allCredits = async (searchQuery, role = "Director") => { //cast and
     return filmObj
 }
 
+const filterToFamiliars = (obj) => {
+    let arr = Object.entries(obj);
+    const filtered = arr.filter(([key,value]) => value > 1)
+    let returnObj = {}
+    filtered.forEach((a => {
+        returnObj[a[0]] = a[1]
+    }))
+    return returnObj
+}
+
 export const creditsParser = async (input, role = "Director") => {
     let cast = []
     let castObj = {}
@@ -35,7 +44,11 @@ export const creditsParser = async (input, role = "Director") => {
 
     arr.forEach(movie => {
        movie.cast.forEach(person => cast.push(person.name))
-       movie.crew.forEach(person => crew.push(person.name))
+       movie.crew.forEach(person => {
+           if (!(RegExp(`\\b${input}\\b`, 'gi').test(person.name))){
+               crew.push(person.name)
+           }
+        })
     })
 
     cast.forEach(person => {
@@ -52,14 +65,28 @@ export const creditsParser = async (input, role = "Director") => {
             crewObj[person] += 1
         }
     })
-    counter.castUnique = Object.values(castObj).length
-    counter.castAll = cast.length;
-    counter.familiarCast = `${parseFloat((Math.abs((counter.castUnique - counter.castAll)) / counter.castAll) * 100).toFixed(2)}%`
-    counter.crewUnique = Object.values(crewObj).length;
-    counter.crewAll = crew.length;
-    counter.familiarCrew = `${parseFloat((Math.abs((counter.crewUnique - counter.crewAll)) / counter.crewAll) * 100).toFixed(2)}%`
+    const castFamiliars = filterToFamiliars(castObj)
+    const castFamiliarsLength = (Object.entries(castFamiliars)).length 
+    const crewFamiliars = filterToFamiliars(crewObj)
+    const crewFamiliarsLength = (Object.entries(crewFamiliars)).length 
 
-    return { movies: allFilmCredits, allCast: cast, allCastUniques: castObj, allCrew: crew, allCrewUniques: crewObj, counter: counter }
+    counter.allCastmembersEver = Object.values(castObj).length
+    counter.familiarCastmembers = castFamiliarsLength 
+    counter.familiarCastPercentage = `${parseFloat((Math.abs(castFamiliarsLength) / counter.allCastmembersEver) * 100).toFixed(2)}%`
+    counter.familiarCrewMembers = crewFamiliarsLength
+    counter.allCrewmembersEver = Object.values(crewObj).length;
+    counter.familiarCrewPercentage = `${parseFloat(Math.abs(crewFamiliarsLength / counter.allCrewmembersEver) * 100).toFixed(2)}%`
+
+    return { 
+        movies: allFilmCredits, 
+        allCast: cast, 
+        allCastUniques: castObj, 
+        castFamiliars: castFamiliars,
+        allCrew: crew, 
+        allCrewUniques: crewObj,
+        crewFamiliars: crewFamiliars,
+        counter: counter,
+        searchQuery: input}
 }
 
 
