@@ -55,41 +55,72 @@ export const linearRegression = (y, x) => {
     return lr;
 }
 
-export const jsonER = (data, name) => {
-    let rootLevel = {
-        "children": [
-
-        ]
-    }
+export const setStorage = (data, name) => {
     let directorJSON = 
-    {
-      "name": name,
-      "children": [
+    {"children": [
         {
-          "name": "Cast Unfamiliars",
-          "group": "A",
-          "value":(data.allCastmembersEver - data.familiarCastmembers),
-          "colname": "level3"
-        },
-        {
-          "name": "Cast Familiars",
-          "group": "A",
-          "value": data.familiarCastmembers,
-          "colname": "level3"
-        },
-        {
-          "name": "Crew Unfamiliars",
-          "group": "A",
-          "value": data.allCrewmembersEver - data.familiarCrewMembers,
-          "colname": "level3"
-        },        
-        {
-          "name": "Crew Familiars",
-          "group": "A",
-          "value": data.familiarCrewMembers,
-          "colname": "level3"
-        },
-      ],
-    }
+          "name": name,
+          "children": [
+            {
+              "name": "Cast Unfamiliars",
+              "group": "A",
+              "value":(data.allCastmembersEver - data.familiarCastmembers),
+              "colname": "level3"
+            },
+            {
+              "name": "Cast Familiars",
+              "group": "A",
+              "value": data.familiarCastmembers,
+              "colname": "level3"
+            },
+            {
+              "name": "Crew Unfamiliars",
+              "group": "A",
+              "value": data.allCrewmembersEver - data.familiarCrewMembers,
+              "colname": "level3"
+            },        
+            {
+              "name": "Crew Familiars",
+              "group": "A",
+              "value": data.familiarCrewMembers,
+              "colname": "level3"
+            },
+          ],
+      }
+    ]}
     return directorJSON 
+}
+
+export const appendStorage = (storage, data, name) => {
+  let directorJSON =         {
+          "name": name,
+          "children": [
+            {
+              "name": "Cast Unfamiliars",
+              "group": "A",
+              "value":(data.allCastmembersEver - data.familiarCastmembers),
+              "colname": "level3"
+            },
+            {
+              "name": "Cast Familiars",
+              "group": "A",
+              "value": data.familiarCastmembers,
+              "colname": "level3"
+            },
+            {
+              "name": "Crew Unfamiliars",
+              "group": "A",
+              "value": data.allCrewmembersEver - data.familiarCrewMembers,
+              "colname": "level3"
+            },        
+            {
+              "name": "Crew Familiars",
+              "group": "A",
+              "value": data.familiarCrewMembers,
+              "colname": "level3"
+            },
+          ],
+      }
+  storage['children'].push(directorJSON)
+  return storage; 
 }

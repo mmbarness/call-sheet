@@ -94,9 +94,12 @@ let seed = {
   ]
 }
 
-export const treeMap = (counter, name) => {
+export const treeMap = () => {
 
-    let newSeed = utils.jsonER(counter, name)
+    let newSeed = JSON.parse(localStorage.getItem('currentChartData'))
+
+    let oldChart = document.getElementById("my_dataviz")
+    if (oldChart !== null) {oldChart.remove()}
 
     let margin = {top: 10, right: 10, bottom: 10, left: 10},
     width = 850 - margin.left - margin.right,
