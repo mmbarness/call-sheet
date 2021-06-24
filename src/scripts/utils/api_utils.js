@@ -27,7 +27,8 @@ export const sleep = (ms) => {
 
 export const getFilmography  = async(input, role="Director") => {
   //can take in either a person's id or name- if name is provided, will need to first search for the person. for now, assumes the first result is the correct result
-  let searchVar = (typeof input === 'string') ? await (searchPerson(input)).then(resp => {return(resp.id)}) : input
+  let queryReturn
+  let searchVar = (typeof input === 'string') ? await (searchPerson(input)).then(resp => {queryReturn = resp; return(resp.id)}) : input
   const searchUrl = `https://api.themoviedb.org/3/person/${searchVar}/movie_credits?api_key=${api_key}&language=en-US`
   const searchResults = await fetch(searchUrl, {
     method: 'GET'
@@ -52,7 +53,7 @@ export const getFilmography  = async(input, role="Director") => {
     creditsObj[movie.id] = credits 
     })
   )
-  return {movies: resultsObj, credits: creditsObj}
+  return {director: queryReturn, movies: resultsObj, credits: creditsObj}
 }
 
 export const searchMovie = async (movieTitle) => {

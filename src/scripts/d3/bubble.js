@@ -1,11 +1,15 @@
 import * as d3 from 'd3'
 
 
-export const bubbleMaker = () => {
-
+export const bubbleMaker = (searchQuery) => {
     let localData = JSON.parse(localStorage.getItem('currentBubbleChartData'))
-    let dataset = {name: 'favorites', children: (localData.children[0].children[0].children).concat(localData.children[0].children[1].children)}
+
+    localData = (localData.children).filter(directorObj => directorObj.name === searchQuery)
+
+    let dataset = {name: 'favorites', children: (localData[0].children[0].children).concat(localData[0].children[1].children)}
     let oldChart = document.getElementById("bubble-chart")
+
+    window.bubbleData = dataset
 
     if (oldChart !== null) {oldChart.remove()}
 
@@ -14,7 +18,7 @@ export const bubbleMaker = () => {
         const newDiv = document.createElement('div');
         newDiv.setAttribute("id", "bubble-chart")
         newDiv.setAttribute("class", "d3div")
-        container.appendChild(newDiv);
+        container.insertAdjacentElement('beforeend', newDiv);
     }
 
     addDiv();
@@ -63,7 +67,7 @@ export const bubbleMaker = () => {
             return color(d.data.group);
         });
 
-    node.append("text")
+    node.append("text")  //crew/castmember name 
         .attr("dy", ".2em")
         .style("text-anchor", "middle")
         .text(function(d) { 
@@ -75,11 +79,23 @@ export const bubbleMaker = () => {
         })
         .attr("fill", "white");
 
-    node.append("text")
+    node.append("text") //crew/castmember role
         .attr("dy", "1.3em")
         .style("text-anchor", "middle")
         .text(function(d) {
             return d.data.value;
+        })
+        .attr("font-family",  "Gill Sans", "Gill Sans MT")
+        .attr("font-size", function(d){
+            return d.r/5;
+        })
+        .attr("fill", "white");
+    
+    node.append("text") //crew/castmember number of appearances/collaborations
+        .attr("dy", "2.25em")
+        .style("text-anchor", "middle")
+        .text(function(d) {
+            return d.data.role;
         })
         .attr("font-family",  "Gill Sans", "Gill Sans MT")
         .attr("font-size", function(d){

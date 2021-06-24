@@ -1,12 +1,12 @@
 #d3-container{
     display: flex;
-    flex-flow: row;
+    flex-flow: row-reverse;
     align-self: center;
-    align-items: center;
-    padding-top: 2vh;
     justify-content: space-between;
 }
 
-#treemap {
-    align-self:flex-start
+#treemap-icons-container {
+    display: flex;
+    flex-flow: column;
+    margin-top: 3vh;
 }

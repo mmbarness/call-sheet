@@ -5,6 +5,7 @@ import { addDiv } from "./basicElements";
 import '../../styles/search.css'
 import { bubbleMaker } from "../d3/bubble";
 import { deleteSVGs } from "../utils/d3_utils";
+import { d3Relay } from "../d3/d3Relay";
 
 
 export const addClearSearchButton = (searchContainer) => {
@@ -46,8 +47,7 @@ searchBar.addEventListener("keypress", (e) => {
                 counter: resp.counter, 
                 searchQuery: resp.searchQuery,
             })
-            treeMap();
-            bubbleMaker();
+            d3Relay(resp.searchQuery.input);
         })
     }
 })

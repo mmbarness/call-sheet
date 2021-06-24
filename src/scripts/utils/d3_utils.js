@@ -1,3 +1,5 @@
+import { bubbleMaker } from "../d3/bubble";
+
 export const siuColours = {
     black: "#262638",
     purple: "#414258",
@@ -59,7 +61,8 @@ export const setChartStorage = ({counter, searchQuery}) => {
     let directorJSON = 
     {"children": [
         {
-          "name": searchQuery,
+          "name": searchQuery.input,
+          "info": searchQuery.searchResults,
           "children": [
             {
               "name": "Cast Unfamiliars",
@@ -93,7 +96,8 @@ export const setChartStorage = ({counter, searchQuery}) => {
 
 export const appendChartStorage = (storage, {counter, searchQuery}) => {
   let directorJSON =         {
-          "name": searchQuery,
+          "name": searchQuery.input,
+          "info": searchQuery.searchResults,
           "children": [
             {
               "name": "Cast Unfamiliars",
@@ -130,17 +134,18 @@ export const setBubbleChartStorage = ({cast, crew, searchQuery}) => {
   let castArr = [];
   let crewArr = [];
   for (const k in cast) {
-    castArr.push({name: k, value: cast[k], group: 'cast'})
+    castArr.push({id: cast[k].id, name: k, value: cast[k].count, group: 'cast', role: cast[k].role, prof_path: cast[k].prof_path})
   }
   for (const k in crew){
-    crewArr.push({name: k, value: crew[k], group: 'crew'})
+    crewArr.push({id: crew[k].id, name: k, value: crew[k].count, group: 'crew', role: crew[k].role, prof_path: crew[k].prof_path})
   }
 
   let directorFavoritesJSON = {
     children:
         [
           {
-            "name": searchQuery,
+          "name": searchQuery.input,
+          "info": searchQuery.searchResults,
             "children": [
               {
                 "name": "Favorite Crewmembers",
@@ -154,6 +159,7 @@ export const setBubbleChartStorage = ({cast, crew, searchQuery}) => {
           }
         ]
       }
+
   return directorFavoritesJSON
 }
 
@@ -161,13 +167,14 @@ export const appendBubbleChartStorage = (storage, {cast, crew, searchQuery}) => 
   let castArr = [];
   let crewArr = [];
   for (const k in cast) {
-    castArr.push({name: k, value: cast[k], group: 'cast'})
+    castArr.push({id: cast[k].id, name: k, value: cast[k].count, group: 'cast', role: cast[k].role, prof_path: cast[k].prof_path})
   }
   for (const k in crew){
-    crewArr.push({name: k, value: crew[k], group: 'crew'})
+    crewArr.push({id: crew[k].id, name: k, value: crew[k].count, group: 'crew', role: crew[k].role, prof_path: crew[k].prof_path})
   }
   let directorFavoritesJSON = {
-          "name": searchQuery,
+          "name": searchQuery.input,
+          "info": searchQuery.searchResults,
           "children": [
             {
               "name": "Favorite Crewmembers",
@@ -185,4 +192,26 @@ export const appendBubbleChartStorage = (storage, {cast, crew, searchQuery}) => 
 
 export const deleteSVGs = (eles) => {
   eles.forEach((div) => document.getElementById(div.id).remove())
+}
+
+export const chartClicker = (e) => {
+  const searchQuery = (e.currentTarget.className.baseVal).replace("-treemap", "").replace("-", " ")
+  bubbleMaker(searchQuery)
+}
+
+export const rectClassParser = (name) => {
+  return `${name.replace(" ", "-")}-treemap-rect`
+}
+
+export const colorSetter = () => {
+  const data = JSON.parse(localStorage.getItem('currentChartData'));
+  const dirArray = (data.children).map(director => director.name)
+  return dirArray;
+}
+
+export const titleizeTreemap = (title) => {
+  const treemap = document.getElementById()
+  const titleEle = document.createElement('h2')
+  titleEle.setAttribute('text', searchQuery)
+
 }
