@@ -1,23 +1,32 @@
-import { appendStorage, setStorage } from "./d3_utils"
+import { appendChartStorage, setChartStorage, setBubbleChartStorage, appendBubbleChartStorage} from "./d3_utils"
 
-export const setLocalStorage = (data, searchQuery) => {
-    const ftfy = setStorage(data, searchQuery)
+export const setLocalChartStorage = (data) => {
+    const ftfy = setChartStorage(data)
     localStorage.setItem("currentChartData", JSON.stringify(ftfy))
-    
 }
 
-export const appendLocalStorage = (data, searchQuery) => {
+export const appendLocalChartStorage = (data) => {
     const curStorage = JSON.parse(localStorage.currentChartData)
-    const newStorage = appendStorage(curStorage, data, searchQuery)
+    const newStorage = appendChartStorage(curStorage, data)
     localStorage.setItem("currentChartData", JSON.stringify(newStorage))
+}
+
+export const setLocalBubbleChartStorage = (data) => {
+    const ftfy = setBubbleChartStorage(data)
+    localStorage.setItem("currentBubbleChartData", JSON.stringify(ftfy))
+}
+
+export const appendLocalBubbleChartStorage = (data) => {
+    const curStorage = JSON.parse(localStorage.currentBubbleChartData)
+    const newStorage = appendBubbleChartStorage(curStorage, data)
+    localStorage.setItem("currentBubbleChartData", JSON.stringify(newStorage))
 }
 
 export const deleteLocalStorage = () => {
     localStorage.clear()
 }
 
-export const manageLocalStorage = (data, searchQuery) => {
-    (localStorage.getItem("currentChartData") === null) 
-        ? setLocalStorage(data, searchQuery)
-        : appendLocalStorage(data, searchQuery) 
+export const manageLocalStorage = (data) => {
+    if (localStorage.getItem("currentChartData") === null) { setLocalChartStorage(data)} else {appendLocalChartStorage(data)}
+    if (localStorage.getItem("currentBubbleChartData") === null) {setLocalBubbleChartStorage(data)} else {appendLocalBubbleChartStorage(data)}
 }

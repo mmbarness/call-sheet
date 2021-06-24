@@ -88,4 +88,5 @@ module.exports = {
     }),
     require("autoprefixer"),
   ],
+  target: 'node'
 };

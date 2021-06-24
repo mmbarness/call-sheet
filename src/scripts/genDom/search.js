@@ -1,8 +1,11 @@
 import { treeMap } from "../d3/treemap";
 import { creditsParser } from "../tmdb/data_builder";
-import { appendLocalStorage, deleteLocalStorage, localStorageManager, manageLocalStorage } from "../utils/browser_utils";
+import { deleteLocalStorage, manageLocalStorage } from "../utils/browser_utils";
 import { addDiv } from "./basicElements";
 import '../../styles/search.css'
+import { bubbleMaker } from "../d3/bubble";
+import { deleteSVGs } from "../utils/d3_utils";
+
 
 export const addClearSearchButton = (searchContainer) => {
     const clearSearchButton = document.createElement('button');
@@ -26,6 +29,7 @@ export const addSearch = () => {
 
 addSearch()
 
+
 const searchBar = document.getElementById("searchBar");
 const clearSearch = document.getElementById("clearSearchButton");
 
@@ -33,18 +37,24 @@ searchBar.addEventListener("keyup", e => {
     const searchString = e.target.value; 
 });
 
-searchBar.addEventListener("keypress", async (e) => {
+searchBar.addEventListener("keypress", (e) => {
     if (e.key === "Enter"){
         creditsParser(e.target.value, 'Director').then(resp => { 
-            manageLocalStorage(resp.counter, resp.searchQuery)
-
-            treeMap()})
+            manageLocalStorage({
+                cast: resp.castFamiliars,
+                crew: resp.crewFamiliars,
+                counter: resp.counter, 
+                searchQuery: resp.searchQuery,
+            })
+            treeMap();
+            bubbleMaker();
+        })
     }
 })
 
 clearSearch.addEventListener("click", e => {
     e.preventDefault();
-    let oldChart = document.getElementById("my_dataviz")
-    if (oldChart !== null) {oldChart.remove()}
+    const d3s = document.getElementsByClassName("d3div")
+    deleteSVGs([...d3s]);
     deleteLocalStorage();
 })

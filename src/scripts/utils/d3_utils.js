@@ -55,34 +55,34 @@ export const linearRegression = (y, x) => {
     return lr;
 }
 
-export const setStorage = (data, name) => {
+export const setChartStorage = ({counter, searchQuery}) => {
     let directorJSON = 
     {"children": [
         {
-          "name": name,
+          "name": searchQuery,
           "children": [
             {
               "name": "Cast Unfamiliars",
               "group": "A",
-              "value":(data.allCastmembersEver - data.familiarCastmembers),
+              "value":(counter.allCastmembersEver - counter.familiarCastmembers),
               "colname": "level3"
             },
             {
               "name": "Cast Familiars",
               "group": "A",
-              "value": data.familiarCastmembers,
+              "value": counter.familiarCastmembers,
               "colname": "level3"
             },
             {
               "name": "Crew Unfamiliars",
               "group": "A",
-              "value": data.allCrewmembersEver - data.familiarCrewMembers,
+              "value": counter.allCrewmembersEver - counter.familiarCrewMembers,
               "colname": "level3"
             },        
             {
               "name": "Crew Familiars",
               "group": "A",
-              "value": data.familiarCrewMembers,
+              "value": counter.familiarCrewMembers,
               "colname": "level3"
             },
           ],
@@ -91,36 +91,98 @@ export const setStorage = (data, name) => {
     return directorJSON 
 }
 
-export const appendStorage = (storage, data, name) => {
+export const appendChartStorage = (storage, {counter, searchQuery}) => {
   let directorJSON =         {
-          "name": name,
+          "name": searchQuery,
           "children": [
             {
               "name": "Cast Unfamiliars",
               "group": "A",
-              "value":(data.allCastmembersEver - data.familiarCastmembers),
+              "value":(counter.allCastmembersEver - counter.familiarCastmembers),
               "colname": "level3"
             },
             {
               "name": "Cast Familiars",
               "group": "A",
-              "value": data.familiarCastmembers,
+              "value": counter.familiarCastmembers,
               "colname": "level3"
             },
             {
               "name": "Crew Unfamiliars",
               "group": "A",
-              "value": data.allCrewmembersEver - data.familiarCrewMembers,
+              "value": counter.allCrewmembersEver - counter.familiarCrewMembers,
               "colname": "level3"
             },        
             {
               "name": "Crew Familiars",
               "group": "A",
-              "value": data.familiarCrewMembers,
+              "value": counter.familiarCrewMembers,
               "colname": "level3"
             },
           ],
       }
   storage['children'].push(directorJSON)
   return storage; 
+}
+
+
+export const setBubbleChartStorage = ({cast, crew, searchQuery}) => {
+  let castArr = [];
+  let crewArr = [];
+  for (const k in cast) {
+    castArr.push({name: k, value: cast[k], group: 'cast'})
+  }
+  for (const k in crew){
+    crewArr.push({name: k, value: crew[k], group: 'crew'})
+  }
+
+  let directorFavoritesJSON = {
+    children:
+        [
+          {
+            "name": searchQuery,
+            "children": [
+              {
+                "name": "Favorite Crewmembers",
+                "children": crewArr
+              },
+              {
+                "name": "Favorite Castmembers",
+                "children": castArr 
+              }
+            ]
+          }
+        ]
+      }
+  return directorFavoritesJSON
+}
+
+export const appendBubbleChartStorage = (storage, {cast, crew, searchQuery}) => {
+  let castArr = [];
+  let crewArr = [];
+  for (const k in cast) {
+    castArr.push({name: k, value: cast[k], group: 'cast'})
+  }
+  for (const k in crew){
+    crewArr.push({name: k, value: crew[k], group: 'crew'})
+  }
+  let directorFavoritesJSON = {
+          "name": searchQuery,
+          "children": [
+            {
+              "name": "Favorite Crewmembers",
+              "children": crewArr
+            },
+            {
+              "name": "Favorite Castmembers",
+              "children": castArr 
+            }
+          ]
+      }
+  storage['children'].push(directorFavoritesJSON)
+  return storage; 
+}
+
+export const deleteSVGs = (eles) => {
+  eles.forEach((div) => document.getElementById(div.id).remove())
 }
