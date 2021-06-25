@@ -1,7 +1,8 @@
 import "regenerator-runtime/runtime";
 import * as tmdb from '../utils/api_utils'
 import * as _ from 'underscore'
-import { filter } from "underscore";
+import { genCrewArr, genCrewObj } from "./crewBuilder";
+import { genCastArr, genCastObj } from "./castBuilder";
 
 export const allCredits = async (searchQuery, role = "Director") => { //cast and crew of every movie a director's made
     let input = searchQuery.name || searchQuery.nameId
@@ -35,55 +36,13 @@ const filterToFamiliars = (obj) => {
 }
 
 export const creditsParser = async (input, role = "Director") => {
-    let cast = []
-    let castObj = {}
-    let crew = []
-    let crewObj = {}
-    let counter = {}
     let allFilmCredits = await allCredits({ name: input }, role).then(resp => (resp))
-    let arr = (Object.values(allFilmCredits.movies))
-
-    arr.forEach(movie => {
-       movie.cast.forEach(person => {
-            if (!(RegExp(`\\b${input}\\b`, 'gi').test(person.name))){
-                cast.push({id: person.id, name: person.name, role: person.known_for_department, prof_path: person.profile_path})
-            }
-        })
-       movie.crew.forEach(person => {
-           if (!(RegExp(`\\b${input}\\b`, 'gi').test(person.name))){
-               crew.push({id: person.id, name: person.name, role: person.known_for_department, prof_path: person.profile_path})
-           }
-        })
-    })
-
-    cast.forEach(person => {
-        let name = person.name 
-        if (castObj[name] === undefined) {
-            castObj[name] ={
-                "id": person.id,
-                "count": 1,
-                "role": person.role,
-                "prof_path": person.prof_path,
-            }
-        } else {
-            castObj[name]["count"] += 1
-        }
-    }) 
-
-    crew.forEach(person => {
-        let name = person.name 
-        if (crewObj[name] === undefined) {
-            crewObj[name] = {
-                "id": person.id,
-                "count": 1,
-                "role": person.role,
-                "prof_path": person.prof_path
-            }
-        } else {
-            crewObj[name]["count"] += 1
-        }
-    })
-
+    let creditsArr = (Object.values(allFilmCredits.movies))
+    let cast = genCastArr(creditsArr, input)
+    let castObj = genCastObj(cast)
+    let crew = genCrewArr(creditsArr, input)
+    let crewObj = genCrewObj(crew)
+    let counter = {}
 
     const castFamiliars = filterToFamiliars(castObj)
     const castFamiliarsLength = (Object.entries(castFamiliars)).length 
