@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import { makeBubbleContainer } from '../genDom/bubbleStuff'
 import * as utils from '../utils/d3_utils'
 
 export const treeMap = (searchQuery) => {
@@ -14,7 +15,7 @@ export const treeMap = (searchQuery) => {
     height = 100 - margin.top - margin.bottom;
 
     const addContainer = () => {
-      const bubbleChart = document.getElementById("bubble-chart")
+      const bubbleChart = (document.getElementById("bubble-chart") === null) ? makeBubbleContainer(true) : document.getElementById("bubble-chart")
       const iconContainer = document.createElement("div")
       iconContainer.setAttribute("id", "treemap-icons-container")
       bubbleChart.insertAdjacentElement('afterend',iconContainer);
@@ -43,7 +44,7 @@ export const treeMap = (searchQuery) => {
                 "translate(" + margin.left + "," + margin.top + ")");
 
 // read json data
-
+    utils.titleizeTreemap(searchQuery)
     // Give the data to this cluster layout:
     const root = d3.hierarchy(localData[0]).sum(function(d){return d.value}) // Here the size of each leave is given in the 'value' field in input data
     

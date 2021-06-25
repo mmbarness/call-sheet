@@ -12,7 +12,29 @@ import './scripts/genDom/basicElements'
 import { addSearch } from "./scripts/genDom/search";
 import './styles/index.scss'
 import './styles/d3.css'
+import { deleteLocalStorage, manageLocalStorage } from "./scripts/utils/browser_utils";
 
-// import fs from "fs";
+
+window.onload = () => {
+    deleteLocalStorage();
+}
 
 
+
+const pageLoad = (directors) => {
+
+    directors.forEach(director => {
+        creditsParser(director, 'Director').then(resp => { 
+            manageLocalStorage({
+                cast: resp.castFamiliars,
+                crew: resp.crewFamiliars,
+                counter: resp.counter, 
+                searchQuery: resp.searchQuery,
+            })
+            treeMap(director);
+        })
+    })
+
+}
+
+pageLoad(['michael mann', 'kathryn bigelow'])

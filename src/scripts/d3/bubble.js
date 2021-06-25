@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import { makeBubbleContainer, titleizeBubbleChart } from '../genDom/bubbleStuff'
 
 
 export const bubbleMaker = (searchQuery) => {
@@ -9,21 +10,15 @@ export const bubbleMaker = (searchQuery) => {
     let dataset = {name: 'favorites', children: (localData[0].children[0].children).concat(localData[0].children[1].children)}
     let oldChart = document.getElementById("bubble-chart")
 
-    window.bubbleData = dataset
-
     if (oldChart !== null) {oldChart.remove()}
+    const loadingIcon = document.getElementsByClassName("loader")[0]
+    // loadingIcon.style.display = "none"
+    // debugger;
 
-    const addDiv = () => {
-        const container = document.getElementById("d3-container")
-        const newDiv = document.createElement('div');
-        newDiv.setAttribute("id", "bubble-chart")
-        newDiv.setAttribute("class", "d3div")
-        container.insertAdjacentElement('beforeend', newDiv);
-    }
+    makeBubbleContainer(false); //false to indicate I dont want it to return the new element
+    titleizeBubbleChart(searchQuery); 
 
-    addDiv();
-
-    const diameter = 1200;
+    const diameter = (document.getElementById("bubble-chart")).clientHeight;;
 
     const color = d3.scaleOrdinal()
         .domain(['cast', 'crew'])
@@ -45,6 +40,8 @@ export const bubbleMaker = (searchQuery) => {
     const node = svg.selectAll(".node")
         .data(bubble(nodes).descendants())
         .enter()
+        // .append("a")
+            // .attr("href", d => `https://www.themoviedb.org/person/${d.data.id}-${d.data.name.replace(" ", "-")}`)  
         .filter(function(d){
             return  !d.children
         })
@@ -54,18 +51,25 @@ export const bubbleMaker = (searchQuery) => {
             return "translate(" + d.x + "," + d.y + ")";
         });
 
+    node.append("a")
+        .attr("href", d => `https://www.themoviedb.org/person/${d.data.id}-${d.data.name.replace(" ", "-")}`)        
+
     node.append("title")
         .text(function(d) {
-            return d.name + ": " + d.value;
+            return d.data.name
         });
 
     node.append("circle")
         .attr("r", function(d) {
             return d.r;
         })
+        .on("click", d => {
+            window.open(d.path[1].childNodes[0].href.baseVal,'_blank')
+        })
         .style("fill", function(d,i) {
             return color(d.data.group);
-        });
+        })
+
 
     node.append("text")  //crew/castmember name 
         .attr("dy", ".2em")
@@ -73,9 +77,8 @@ export const bubbleMaker = (searchQuery) => {
         .text(function(d) { 
             return d.data.name.substring(0, d.r / 3);
         })
-        .attr("font-family", "sans-serif")
         .attr("font-size", function(d){
-            return d.r/5;
+            return d.r/6;
         })
         .attr("fill", "white");
 
@@ -85,7 +88,6 @@ export const bubbleMaker = (searchQuery) => {
         .text(function(d) {
             return d.data.value;
         })
-        .attr("font-family",  "Gill Sans", "Gill Sans MT")
         .attr("font-size", function(d){
             return d.r/5;
         })
@@ -97,11 +99,11 @@ export const bubbleMaker = (searchQuery) => {
         .text(function(d) {
             return d.data.role;
         })
-        .attr("font-family",  "Gill Sans", "Gill Sans MT")
         .attr("font-size", function(d){
             return d.r/5;
         })
         .attr("fill", "white");
+
 
     d3.select(self.frameElement)
         .style("height", diameter + "px");

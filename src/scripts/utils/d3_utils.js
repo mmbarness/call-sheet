@@ -195,7 +195,7 @@ export const deleteSVGs = (eles) => {
 }
 
 export const chartClicker = (e) => {
-  const searchQuery = (e.currentTarget.className.baseVal).replace("-treemap", "").replace("-", " ")
+  const searchQuery = (e.currentTarget.className.baseVal).replace("-treemap", "").replace("-", " ").replace("-rect", "")
   bubbleMaker(searchQuery)
 }
 
@@ -210,8 +210,8 @@ export const colorSetter = () => {
 }
 
 export const titleizeTreemap = (title) => {
-  const treemap = document.getElementById()
-  const titleEle = document.createElement('h2')
-  titleEle.setAttribute('text', searchQuery)
-
+  const treemap = document.getElementById(`${title.replace(" ", "-")}-treemap`)
+  const titleEle = document.createElement('h3')
+  titleEle.textContent = title
+  treemap.insertAdjacentElement('afterbegin', titleEle);
 }
