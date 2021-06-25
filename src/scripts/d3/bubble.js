@@ -1,7 +1,6 @@
 import * as d3 from 'd3'
-import { clearTitle, loadingIcon, makeBubbleContainer, titleizeBubbleChart, useIcon, waitOrNot } from '../genDom/bubbleStuff'
-import { sleep } from '../utils/api_utils'
-import { storageChecker } from '../utils/d3_utils'
+import { clearTitle, loadingIcon, makeBubbleContainer, titleizeBubbleChart, useIcon, waitOrNot } from '../components/bubbleStuff'
+import { storageChecker } from '../utils/d3/d3_utils'
 
 
 export const bubbleMaker = async (searchQuery) => {

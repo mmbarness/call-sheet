@@ -1,4 +1,5 @@
-import { appendChartStorage, setChartStorage, setBubbleChartStorage, appendBubbleChartStorage} from "./d3_utils"
+import { setBubbleChartStorage, appendBubbleChartStorage} from "./d3/bubble_utils"
+import { appendChartStorage, setChartStorage} from "./d3/treemap_utils"
 
 export const setLocalChartStorage = (data) => {
     const ftfy = setChartStorage(data)

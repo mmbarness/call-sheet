@@ -1,15 +1,14 @@
 import * as d3 from 'd3'
-import { makeBubbleContainer } from '../genDom/bubbleStuff'
-import * as utils from '../utils/d3_utils'
+import { makeBubbleContainer } from '../components/bubbleStuff'
+import { colorSetter, storageChecker } from '../utils/d3/d3_utils'
+import * as treemapUtils from '../utils/d3/treemap_utils'
 
 export const treeMap = async (searchQuery) => {
 
-    utils.storageChecker(searchQuery, 'currentChartData') ? await new Promise(resolve => setTimeout(resolve, 2000)) : null 
+    storageChecker(searchQuery, 'currentChartData') ? await new Promise(resolve => setTimeout(resolve, 2000)) : null 
 
     let localData = JSON.parse(localStorage.getItem('currentChartData'))
     localData = (localData.children).filter(directorObj => directorObj.name === searchQuery)
-    
-    // let newSeed = JSON.parse(localStorage.getItem('currentChartData'))
 
     let margin = {top: 10, right: 10, bottom: 10, left: 10},
     width = 100 - margin.left - margin.right,
@@ -45,12 +44,12 @@ export const treeMap = async (searchQuery) => {
                 "translate(" + margin.left + "," + margin.top + ")");
 
 // read json data
-    utils.titleizeTreemap(searchQuery)
+    treemapUtils.titleizeTreemap(searchQuery)
     // Give the data to this cluster layout:
 
     const root = d3.hierarchy(localData[0]).sum(function(d){return d.value}) // Here the size of each leave is given in the 'value' field in input data
-    
-    const colorArray = utils.colorSetter();
+
+    const colorArray = colorSetter();
     const color = d3.scaleOrdinal()
         .domain(colorArray)
         .range(["#402D54", "#D18975", "#8FD175"])
@@ -76,12 +75,12 @@ export const treeMap = async (searchQuery) => {
         .attr('y', function (d) { return d.y0; })
         .attr('width', function (d) {return d.x1 - d.x0; })
         .attr('height', function (d) { return d.y1 - d.y0; })
-        .attr('class', d => utils.rectClassParser(d.parent.data.name))
+        .attr('class', d => treemapUtils.rectClassParser(d.parent.data.name))
         .style("stroke", "black")
         .style("fill", function (d, i) {
             return color(d.parent.data.name);
         })
-        .on("click", e => utils.chartClicker(e))
+        .on("click", e => treemapUtils.chartClicker(e))
         .style("opacity", function(d){return opacity(d.data.value)})
 
 }

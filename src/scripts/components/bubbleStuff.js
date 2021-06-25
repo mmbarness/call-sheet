@@ -1,4 +1,4 @@
-import { addDiv } from "./basicElements";
+import { addDiv } from "../utils/basicElementGen";
 
 export const makeBubbleContainer = (bool) => {
     const container = document.getElementById("d3-container")

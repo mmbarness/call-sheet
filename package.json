@@ -1,7 +1,7 @@
 {
-  "name": "js_project_skeleton",
+  "name": "call-sheet",
   "version": "1.0.0",
-  "description": "skeleton for new JS project",
+  "description": "movie data visualizer",
   "main": "index.js",
   "browserslist": [
     "last 1 version",
@@ -14,7 +14,7 @@
     "watch": "NODE_ENV=development webpack --watch --config webpack.dev.js ",
     "build": "NODE_ENV=production webpack --config webpack.prod.js"
   },
-  "author": "mrcjbradley",
+  "author": "matthew barnes",
   "license": "ISC",
   "dependencies": {
     "d3": "^7.0.0",
