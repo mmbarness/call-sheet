@@ -2,10 +2,11 @@ import * as d3 from 'd3'
 import { makeBubbleContainer } from '../genDom/bubbleStuff'
 import * as utils from '../utils/d3_utils'
 
-export const treeMap = (searchQuery) => {
+export const treeMap = async (searchQuery) => {
+
+    utils.storageChecker(searchQuery, 'currentChartData') ? await new Promise(resolve => setTimeout(resolve, 2000)) : null 
 
     let localData = JSON.parse(localStorage.getItem('currentChartData'))
-    
     localData = (localData.children).filter(directorObj => directorObj.name === searchQuery)
     
     // let newSeed = JSON.parse(localStorage.getItem('currentChartData'))
@@ -46,6 +47,7 @@ export const treeMap = (searchQuery) => {
 // read json data
     utils.titleizeTreemap(searchQuery)
     // Give the data to this cluster layout:
+
     const root = d3.hierarchy(localData[0]).sum(function(d){return d.value}) // Here the size of each leave is given in the 'value' field in input data
     
     const colorArray = utils.colorSetter();
@@ -82,124 +84,5 @@ export const treeMap = (searchQuery) => {
         .on("click", e => utils.chartClicker(e))
         .style("opacity", function(d){return opacity(d.data.value)})
 
-    // and to add the text labels
-    // svg
-    //     .selectAll("text")
-    //     .data(root.leaves())
-    //     .enter()
-    //     .append("text")
-    //     .attr("x", function(d){ return d.x0+2.5})    // +10 to adjust position (more right)
-    //     .attr("y", function(d){ return d.y0+30})    // +20 to adjust position (lower)
-    //     .text(function(d){ return `${d.data.name}: ${d.data.value}` })
-    //     .attr("font-size", "10px")
-    //     .attr("fill", "white")
-    //     .attr("class", "box-text")
-
-    // svg
-    //     .selectAll("titles")
-    //     .data(root.descendants().filter(function(d){return d.depth==1}))
-    //     .enter()
-    //     .append("text")
-    //     .attr("x", function(d){return d.x0+1.5})
-    //     .attr("y", function(d){ return d.y0+17.5})
-    //     .text(function(d){ return d.parent.data.name })
-    //     .attr("font-size", "19px")
-    //     .attr("font-family",  "Gill Sans", "Gill Sans MT")
-    //     .attr("fill",  "black" )
-    //     .attr("class", "director-name")
 }
 
-//        .attr("x", function(d){return ((d.x0 + 50) % d.x1)})
-
-
-let seed = {
-  "children": [
-    {
-      "name": "Quentin Tarantino",
-      "children": [
-        {
-          "name": "Cast Unfamiliars",
-          "group": "A",
-          "value": 207,
-          "colname": "level3"
-        },
-        {
-          "name": "Cast Familiars",
-          "group": "A",
-          "value": 35,
-          "colname": "level3"
-        },
-        {
-          "name": "Crew Unfamiliars",
-          "group": "A",
-          "value": 515,
-          "colname": "level3"
-        },        
-        {
-          "name": "Crew Familiars",
-          "group": "A",
-          "value": 174,
-          "colname": "level3"
-        },
-      ],
-    },
-    {
-      "name": "Martin Scorsese",
-      "children": [
-        {
-          "name": "Cast Unfamiliars",
-          "group": "A",
-          "value": 626,
-          "colname": "level3"
-        },
-        {
-          "name": "Cast Familiars",
-          "group": "A",
-          "value": 71,
-          "colname": "level3"
-        },
-        {
-          "name": "Crew Unfamiliars",
-          "group": "A",
-          "value": 848,
-          "colname": "level3"
-        },
-        {
-          "name": "Crew Familiars",
-          "group": "A",
-          "value": 191,
-          "colname": "level3"
-        },
-      ],
-    },
-    {
-      "name": "Christopher Nolan",
-      "children": [
-        {
-          "name": "Cast Unfamiliars",
-          "group": "A",
-          "value": 282,
-          "colname": "level3"
-        },
-        {
-          "name": "Cast Familiars",
-          "group": "A",
-          "value": 24,
-          "colname": "level3"
-        },      
-        {
-          "name": "Crew Unfamiliars",
-          "group": "A",
-          "value": 1365,
-          "colname": "level3"
-        },      
-        {
-          "name": "Crew Familiars",
-          "group": "A",
-          "value": 273,
-          "colname": "level3"
-        },
-      ],
-    },
-  ]
-}

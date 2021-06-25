@@ -54,14 +54,13 @@ searchBar.addEventListener("keyup", e => {
 
 searchBar.addEventListener("keypress", async (e) => {
     if (e.key === "Enter"){
-        const resp = await creditsParser(e.target.value, 'Director').then(resp => { 
+        creditsParser(e.target.value, 'Director').then(resp => { 
             manageLocalStorage({
                 cast: resp.castFamiliars,
                 crew: resp.crewFamiliars,
                 counter: resp.counter, 
                 searchQuery: resp.searchQuery,
             }); 
-            return resp; 
         })
         // debugger
         if (waitOrNot(e.target.value)){
@@ -70,14 +69,15 @@ searchBar.addEventListener("keypress", async (e) => {
             if (HTMLCollection.prototype.isPrototypeOf(icon)){
                 icon = icon[0]
             }
-            document.getElementById("bubble").remove()
+            if (document.getElementById("bubble")){
+                document.getElementById("bubble").remove()
+            }
             clearTitle();
             icon.style.display="block"
-            await new Promise(resolve => setTimeout(resolve, 1000))
+            await new Promise(resolve => setTimeout(resolve, 1500))
             icon.style.display = "none"
         }
-        // handleIcon(resp.searchQuery)
-        d3Relay(resp.searchQuery.input);
+        d3Relay(e.target.value);
         clearSearch.style.display = "block";
         async () => await new Promise(resolve => setTimeout(resolve, 1000))
         searchBar.value = ""

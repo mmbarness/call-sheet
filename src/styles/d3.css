@@ -8,6 +8,8 @@
     display: flex;
     flex-flow: column;
     margin-top: 3vh;
+    position: absolute;
+    left: 1vw;
 }
 
 .node:hover {

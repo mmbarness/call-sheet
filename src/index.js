@@ -19,8 +19,6 @@ window.onload = () => {
     deleteLocalStorage();
 }
 
-
-
 const pageLoad = (directors) => {
 
     directors.forEach(director => {

@@ -1,9 +1,13 @@
 import * as d3 from 'd3'
 import { clearTitle, loadingIcon, makeBubbleContainer, titleizeBubbleChart, useIcon, waitOrNot } from '../genDom/bubbleStuff'
 import { sleep } from '../utils/api_utils'
+import { storageChecker } from '../utils/d3_utils'
 
 
 export const bubbleMaker = async (searchQuery) => {
+
+    storageChecker(searchQuery, 'currentBubbleChartData') ? await new Promise(resolve => setTimeout(resolve, 1000)) : null 
+
     let localData = JSON.parse(localStorage.getItem('currentBubbleChartData'))
 
     localData = (localData.children).filter(directorObj => directorObj.name === searchQuery)
