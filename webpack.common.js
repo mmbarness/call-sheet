@@ -41,21 +41,6 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              // you can specify a publicPath here
-              // by default it uses publicPath in webpackOptions.output
-              name: "[name].[ext]",
-              outputPath: "images/",
-              publicPath: "images/",
-            },
-          },
-        ],
-      },
-      {
         test: /\.s[ca]ss/i,
         use: [
           {
@@ -88,4 +73,5 @@ module.exports = {
     }),
     require("autoprefixer"),
   ],
+  target: 'node'
 };

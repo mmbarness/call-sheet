@@ -1,0 +1,36 @@
+#d3-container{
+    display: flex;
+    /* flex-flow: row-reverse; */
+    align-self: center;
+    justify-content: space-between;
+}
+
+#treemap-icons-container {
+    display: flex;
+    flex-flow: column;
+    margin-top: 3vh;
+}
+
+.node:hover {
+    cursor:pointer
+}
+
+#treemap-icons-container > .d3div {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+#treemap-icons-container > .d3div:hover {
+    cursor:pointer
+}
+
+#bubble-chart{
+    height: calc(100vh - 100px); /** output container is small for display */ 
+    /* width: calc(100vw - 100px); */
+}
+
+#bubble-chart-title {
+    text-align: center;
+    font-size: 3vmin;
+}
