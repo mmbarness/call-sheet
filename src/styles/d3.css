@@ -2,7 +2,6 @@
     display: flex;
     /* flex-flow: row-reverse; */
     align-self: center;
-    justify-content: space-between;
 }
 
 #treemap-icons-container {

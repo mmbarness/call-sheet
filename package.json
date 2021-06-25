@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "serve": "NODE_ENV=development webpack serve --config webpack.dev.js ",
+    "start": "node ./src/index.js", 
     "watch": "NODE_ENV=development webpack --watch --config webpack.dev.js ",
     "build": "NODE_ENV=production webpack --config webpack.prod.js"
   },

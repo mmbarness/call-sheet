@@ -18,7 +18,7 @@ export const treeMap = (searchQuery) => {
       const bubbleChart = (document.getElementById("bubble-chart") === null) ? makeBubbleContainer(true) : document.getElementById("bubble-chart")
       const iconContainer = document.createElement("div")
       iconContainer.setAttribute("id", "treemap-icons-container")
-      bubbleChart.insertAdjacentElement('afterend',iconContainer);
+      bubbleChart.insertAdjacentElement('beforebegin',iconContainer);
     }
 
     const addDiv = () => {

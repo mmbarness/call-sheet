@@ -1,22 +1,23 @@
 import * as d3 from 'd3'
-import { makeBubbleContainer, titleizeBubbleChart } from '../genDom/bubbleStuff'
+import { clearTitle, loadingIcon, makeBubbleContainer, titleizeBubbleChart, useIcon, waitOrNot } from '../genDom/bubbleStuff'
+import { sleep } from '../utils/api_utils'
 
 
-export const bubbleMaker = (searchQuery) => {
+export const bubbleMaker = async (searchQuery) => {
     let localData = JSON.parse(localStorage.getItem('currentBubbleChartData'))
 
     localData = (localData.children).filter(directorObj => directorObj.name === searchQuery)
 
     let dataset = {name: 'favorites', children: (localData[0].children[0].children).concat(localData[0].children[1].children)}
-    let oldChart = document.getElementById("bubble-chart")
-
+    let oldChart = document.getElementById("bubble")
     if (oldChart !== null) {oldChart.remove()}
-    const loadingIcon = document.getElementsByClassName("loader")[0]
-    // loadingIcon.style.display = "none"
-    // debugger;
 
-    makeBubbleContainer(false); //false to indicate I dont want it to return the new element
+    const bubbleContainer = (document.getElementById('bubble-chart')===null) ? makeBubbleContainer(true) : (document.getElementById('bubble-chart') ) //true to indicate I dont want it to return the new element
+    clearTitle();
     titleizeBubbleChart(searchQuery); 
+    
+    // const icon = (document.getElementsByClassName('loader').length > 0) ? document.getElementsByClassName('loader') : loadingIcon(bubbleContainer, true)  //same idea- passing it bubbleContainer so that it can append loading Icon to it
+    // waitOrNot(searchQuery) ? useIcon(icon) : null
 
     const diameter = (document.getElementById("bubble-chart")).clientHeight;;
 
@@ -33,6 +34,7 @@ export const bubbleMaker = (searchQuery) => {
         .attr("width", diameter)
         .attr("height", diameter)
         .attr("id", "bubble")
+        .attr("class", "d3div")
 
     const nodes = d3.hierarchy(dataset)
         .sum(function(d) {return d.value; });
