@@ -33,4 +33,4 @@ const pageLoad = (directors) => {
 
 }
 
-pageLoad(['michael mann'])
+pageLoad(['michael mann', 'claire denis', 'olivier assayas', 'cristian mungiu', 'katheryn bigelow' ])
