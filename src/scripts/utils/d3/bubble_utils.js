@@ -1,11 +1,30 @@
+export const roleHandler = (node) => {
+    // if (node.data.)
+}
+
 export const setBubbleChartStorage = ({cast, crew, searchQuery}) => {
   let castArr = [];
   let crewArr = [];
   for (const k in cast) {
-    castArr.push({id: cast[k].id, name: k, value: cast[k].count, group: 'cast', role: cast[k].role, prof_path: cast[k].prof_path})
+    castArr.push({
+      id: cast[k].id, 
+      name: k, 
+      value: cast[k].count, 
+      group: 'cast', 
+      role: cast[k].known_for, 
+      prof_path: cast[k].prof_path
+    })
   }
   for (const k in crew){
-    crewArr.push({id: crew[k].id, name: k, value: crew[k].count, group: 'crew', role: crew[k].role, prof_path: crew[k].prof_path})
+    crewArr.push({
+      id: crew[k].id, 
+      name: k, 
+      value: crew[k].count, 
+      group: 'crew', 
+      job: crew[k].job,
+      known_for: crew[k].known_for, 
+      prof_path: crew[k].prof_path
+    })
   }
 
   let directorFavoritesJSON = {
@@ -35,10 +54,25 @@ export const appendBubbleChartStorage = (storage, {cast, crew, searchQuery}) => 
   let castArr = [];
   let crewArr = [];
   for (const k in cast) {
-    castArr.push({id: cast[k].id, name: k, value: cast[k].count, group: 'cast', role: cast[k].role, prof_path: cast[k].prof_path})
+    castArr.push({
+      id: cast[k].id, 
+      name: k, 
+      value: cast[k].count, 
+      group: 'cast', 
+      role: cast[k].known_for, 
+      prof_path: cast[k].prof_path
+    })
   }
   for (const k in crew){
-    crewArr.push({id: crew[k].id, name: k, value: crew[k].count, group: 'crew', role: crew[k].role, prof_path: crew[k].prof_path})
+    crewArr.push({
+      id: crew[k].id, 
+      name: k, 
+      value: crew[k].count, 
+      group: 'crew', 
+      job: crew[k].job,
+      known_for: crew[k].known_for, 
+      prof_path: crew[k].prof_path
+    })
   }
   let directorFavoritesJSON = {
           "name": searchQuery.input,
