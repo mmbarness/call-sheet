@@ -1,5 +1,6 @@
 import * as d3 from 'd3'
 import { clearTitle, loadingIcon, makeBubbleContainer, titleizeBubbleChart, useIcon, waitOrNot } from '../components/bubbleStuff'
+import { roleHandler } from '../utils/d3/bubble_utils'
 import { storageChecker } from '../utils/d3/d3_utils'
 
 
@@ -87,7 +88,7 @@ export const bubbleMaker = async (searchQuery) => {
         })
         .attr("fill", "white");
 
-    node.append("text") //crew/castmember role
+    node.append("text") //crew/castmember number of appearances/collaborations
         .attr("dy", "1.3em")
         .style("text-anchor", "middle")
         .text(function(d) {
@@ -98,11 +99,13 @@ export const bubbleMaker = async (searchQuery) => {
         })
         .attr("fill", "white");
     
-    node.append("text") //crew/castmember number of appearances/collaborations
+    node.append("text") //crew/castmember role
         .attr("dy", "2.25em")
         .style("text-anchor", "middle")
         .text(function(d) {
-            return d.data.role;
+            // return roleHandler(d)
+            if (d.data.known_for !== "Acting") 
+            return d.data.job;
         })
         .attr("font-size", function(d){
             return d.r/5;

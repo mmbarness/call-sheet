@@ -1,4 +1,4 @@
-import "regenerator-runtime/runtime";
+// import "regenerator-runtime/runtime";
 import { addDiv } from "./scripts/utils/basicElementGen";
 addDiv({
     append: (div) => document.body.appendChild(div),
@@ -33,4 +33,4 @@ const pageLoad = (directors) => {
 
 }
 
-pageLoad(['michael mann', 'kathryn bigelow'])
+pageLoad(['michael mann'])
