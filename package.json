@@ -19,9 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "d3": "^7.0.0",
-    "underscore": "^1.13.1"
-  },
-  "devDependencies": {
+    "underscore": "^1.13.1",
     "@babel/core": "^7.13.14",
     "@babel/plugin-proposal-optional-chaining": "^7.13.12",
     "@babel/polyfill": "^7.12.1",
@@ -48,3 +46,5 @@
     "webpack-merge": "^5.7.3"
   }
 }
+
+
