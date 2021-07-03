@@ -1,5 +1,5 @@
-// import "regenerator-runtime/runtime";
-import { addDiv } from "./scripts/utils/basicElementGen";
+import "regenerator-runtime/runtime";
+import {addDiv} from "./scripts/utils/basicElementGen";
 addDiv({
     append: (div) => document.body.appendChild(div),
     type: "id",

@@ -19,9 +19,6 @@ export const bubbleMaker = async (searchQuery) => {
     const bubbleContainer = (document.getElementById('bubble-chart')===null) ? makeBubbleContainer(true) : (document.getElementById('bubble-chart') ) //true to indicate I dont want it to return the new element
     clearTitle();
     titleizeBubbleChart(searchQuery); 
-    
-    // const icon = (document.getElementsByClassName('loader').length > 0) ? document.getElementsByClassName('loader') : loadingIcon(bubbleContainer, true)  //same idea- passing it bubbleContainer so that it can append loading Icon to it
-    // waitOrNot(searchQuery) ? useIcon(icon) : null
 
     const diameter = (document.getElementById("bubble-chart")).clientHeight;;
 
