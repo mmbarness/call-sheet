@@ -28,4 +28,9 @@ export const fetchIcon = () => {
       document.getElementById("bubble").remove()
   }
   return icon;
+};
+
+export const clearChildren = (parent) => {
+  const children = parent.selectChildren()
+  children.remove();
 }

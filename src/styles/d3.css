@@ -13,7 +13,37 @@
 }
 
 .node:hover {
-    cursor:pointer
+    opacity: .95;
+    cursor: pointer;
+}
+
+.no-pointer-events{
+    pointer-events: none;
+}
+
+.tooltip{
+    font-size: 1.5em;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+.tooltip > span {
+    margin-left: 1.5em;
+}
+
+.tooltip > span:hover {
+    color: red;
+    cursor: pointer;
+}
+
+#tooltip-link {
+    text-decoration: none;
+    color: white;
+}
+
+#tooltip-link:hover{
+    color: #bad1db;
 }
 
 #treemap-icons-container > .d3div {
@@ -28,7 +58,6 @@
 
 #bubble-chart{
     height: calc(100vh - 100px); /** output container is small for display */ 
-    /* width: calc(100vw - 100px); */
 }
 
 #bubble-chart-title {
