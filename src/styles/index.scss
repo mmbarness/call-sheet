@@ -1,5 +1,5 @@
 @import "./reset.css";
-@import url("https://fonts.googleapis.com/css2?family=Mate+SC&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mate+SC&family=Roboto+Slab:wght@100;200;300;400;500;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Mate+SC&display=swap");
 
 body {
@@ -12,3 +12,22 @@ body {
 .my_dataviz{
     align-self: center;
 }
+
+#hire-me-btn{
+    font-family: 'Roboto Slab';
+    background-color: #738F9B;
+    color: white;
+    font-weight: 400;
+    border-radius: .5em;
+    border: none;
+    height: 2em;
+    align-self: flex-end;position: absolute;
+    top: 0;
+    right: 0;
+    margin: .5em;
+}
+
+#hire-me-btn:hover{
+  cursor: pointer;
+  background-color: #bad1db;
+}    

@@ -1,0 +1,127 @@
+/* PHASE 12: Modal */
+.hire-me-container {
+  display: none;
+}
+
+.hire-me-container.is-open {
+  display: block;
+}
+
+.hire-me-box {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  position: absolute;
+  top: 12vmax;
+  left: 50%;
+  margin-left: -220px;
+  min-width: 24em;
+  padding: 20px;
+  background: #fff;
+  z-index: 3;
+  border-radius: 5px;
+  border: 1px solid #000;
+}
+
+#modal-title{
+    font-size: 2em;
+    padding-bottom: 1em;
+}
+
+#svg-container{
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+}
+
+#email-form{
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    font-size: 1.5em;
+    padding-top: 1em;
+}
+
+.email-label-inputs{
+    display: flex;
+    justify-content: space-between;
+    margin: .25em;
+}
+
+.email-inputs{
+    width: 60%;
+}
+
+#send-email-btn{
+    font-family: 'Roboto Slab';
+    background-color: #738F9B;
+    color: white;
+    font-weight: 400;
+    border-radius: .5em;
+    border: none;
+    height: 2em;
+    width: 5em;
+    height: 3em;
+    align-self: center;
+    margin-top: 1em;
+}
+
+#send-email-btn:hover{
+    cursor: pointer;
+    background-color: #bad1db;
+}
+
+.modal-screen {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.7);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.hire-me-container-close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 36px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.hire-me-container-close:hover {
+  color: #f00;
+}
+
+/* .hire-me-container-form > h1 {
+  font-size: 36px;
+  line-height: 1;
+  font-weight: 300;
+}
+
+.hire-me-container-form > p {
+  margin: 0 0 20px 0;
+} */
+
+#hire-me-btn{
+    font-family: 'Roboto Slab';
+    background-color: #738F9B;
+    color: white;
+    font-weight: 400;
+    border-radius: .5em;
+    border: none;
+    height: 2em;
+    align-self: flex-end;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: .5em;
+    width: 5em;
+    height: 3em;
+}
+
+#hire-me-btn:hover{
+  cursor: pointer;
+  background-color: #bad1db;
+}
