@@ -11,6 +11,7 @@ import './scripts/components/search'
 import './styles/index.scss'
 import './styles/d3.css'
 import { deleteLocalStorage, manageLocalStorage } from "./scripts/utils/browser_utils";
+import { HireMeModal } from "./scripts/components/hireMeModal";
 
 
 window.onload = () => {
@@ -18,6 +19,8 @@ window.onload = () => {
 }
 
 const pageLoad = (directors) => {
+    
+    HireMeModal()
 
     directors.forEach(director => {
         creditsParser(director, 'Director').then(resp => { 
