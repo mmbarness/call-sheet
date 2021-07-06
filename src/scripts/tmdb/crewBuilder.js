@@ -1,3 +1,5 @@
+import { crewRenamer } from "../utils/crew-renamer"
+
 //crew-related data processing
 
 export const genCrewArr = (movies, input) => {
@@ -8,7 +10,8 @@ export const genCrewArr = (movies, input) => {
                 crew.push({
                     id: person.id, 
                     name: person.name, 
-                    job: person.job, 
+                    job: crewRenamer(person.job), 
+                    // job: person.job,
                     known_for: person.known_for_department, 
                     prof_path: person.profile_path
                 })
