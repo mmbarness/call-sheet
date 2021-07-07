@@ -39,6 +39,7 @@ export const HireMeModal = (props) => {
         screen.className="modal-screen js-modal-close"
         let hireMeBox = document.createElement('div');
         hireMeBox.setAttribute('class', 'hire-me-box')
+        hireMeBox.setAttribute('id', 'hire-me-box')
         container.appendChild(hireMeBox)
         hireMeBox.appendChild(span)
         hireMeBox.appendChild(h3)
@@ -67,5 +68,20 @@ export const HireMeModal = (props) => {
     let openBtn = openModalBtn() 
     let hireMeContainer = addHireDiv()
     genChildElements(hireMeContainer)
+
+    document.addEventListener("click", e => {
+        const hireMeBox = document.getElementById("hire-me-box")
+        const openBtn = document.getElementById("hire-me-btn")
+        const clickOutside = (!hireMeBox.contains(e.target)) && (!openBtn.contains(e.target));
+        let modal = document.getElementById('hireMeDiv')
+        if (modal.className === "hire-me-container is-open"){
+            if(clickOutside) {
+                let modal = document.getElementById('hireMeDiv')
+                if (modal.style.display === "none") {modal.removeAttribute("style")}
+                isVisible? modal.className = "hire-me-container close" : modal.className = "hire-me-container is-open"
+                isVisible = !isVisible
+            }
+        }
+    })
 }
 

@@ -59,6 +59,7 @@ export const bubbleMaker = async (searchQuery) => {
         .append("div")
         .style("opacity", 0)
         .attr("class", "tooltip")
+        .attr("id", "tooltip")
         .style("background-color", "black")
         .style("border-radius", "5px")
         .style("padding", "10px")

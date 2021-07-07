@@ -56,4 +56,6 @@ export const showTooltip = (d, tooltip) => {
         .append("span")
         .html("&times;")
         .on("click", hideTooltip)
+
+
 }
