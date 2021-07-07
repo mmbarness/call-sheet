@@ -8,11 +8,11 @@ addDiv({
 import { creditsParser } from "./scripts/tmdb/data_builder";
 import { treeMap } from "./scripts/d3/treemap";
 import './scripts/components/search'
+import './scripts/components/typeahead'
 import './styles/index.scss'
 import './styles/d3.css'
 import { deleteLocalStorage, manageLocalStorage } from "./scripts/utils/browser_utils";
 import { HireMeModal } from "./scripts/components/hireMeModal";
-
 
 window.onload = () => {
     deleteLocalStorage();
@@ -36,5 +36,5 @@ const pageLoad = (directors) => {
 
 }
 
-// pageLoad(['michael mann' ])
-pageLoad(['michael mann', 'claire denis', 'martin scorsese', 'Spike Lee', 'kathryn bigelow' ])
+pageLoad(['michael mann' ])
+// pageLoad(['michael mann', 'claire denis', 'martin scorsese', 'Spike Lee', 'kathryn bigelow' ])

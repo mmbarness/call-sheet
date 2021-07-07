@@ -15,6 +15,8 @@ export const bubbleMaker = async (searchQuery) => {
     let dataset = {name: 'favorites', children: (localData[0].children[0].children).concat(localData[0].children[1].children)}
     let oldChart = document.getElementById("bubble")
     if (oldChart !== null) {oldChart.remove()}
+    let oldTooltip = document.getElementById('tooltip');
+    if (oldTooltip !== null) {oldTooltip.remove()}
 
     const bubbleContainer = (document.getElementById('bubble-chart')===null) //true to indicate I dont want it to return the new element
         ? makeBubbleContainer(true) 

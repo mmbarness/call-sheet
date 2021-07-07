@@ -1,7 +1,7 @@
-const api_key = "9c9d46fba5cd7cda8a027831ee64f45e"
+export const API_KEY = "9c9d46fba5cd7cda8a027831ee64f45e"
 
 export const searchPerson = async(name, role = 'Directing') => {
-  const searchUrl = `https://api.themoviedb.org/3/search/person?api_key=${api_key}&language=en-US&query=${name.replace(' ', '%20')}&page=1&include_adult=false`
+  const searchUrl = `https://api.themoviedb.org/3/search/person?api_key=${API_KEY}&language=en-US&query=${name.replace(' ', '%20')}&page=1&include_adult=false`
   let personResults
   let json
   try {
@@ -14,7 +14,7 @@ export const searchPerson = async(name, role = 'Directing') => {
     }
   let person
   (json.results.length > 1) 
-    ? (person = json.results.filter(person => RegExp(`\\b${name}\\b`, 'gi').test(person.name)) //filter out names that dont match (case-insensitive)
+    ? (person = json.results.filter(person => RegExp(`\\b${name}\\b`, 'gi').test(person.name) && person.popularity > 1) //filter out names that dont match (case-insensitive)
       .sort((a,b) => b.popularity - a.popularity)) //results might return sorted by popularity by default, but just to make sure
     : (person = json.results[0])
   person.length === 0 ? person = json.results[0] : person 
@@ -29,7 +29,8 @@ export const getFilmography  = async(input, role="Director") => {
   //can take in either a person's id or name- if name is provided, will need to first search for the person. for now, assumes the first result is the correct result
   let queryReturn
   let searchVar = (typeof input === 'string') ? await (searchPerson(input)).then(resp => {queryReturn = resp; return(resp.id)}) : input
-  const searchUrl = `https://api.themoviedb.org/3/person/${searchVar}/movie_credits?api_key=${api_key}&language=en-US`
+  if (searchVar === "nothing found") return searchVar 
+  const searchUrl = `https://api.themoviedb.org/3/person/${searchVar}/movie_credits?api_key=${API_KEY}&language=en-US`
   const searchResults = await fetch(searchUrl, {
     method: 'GET'
   })
@@ -58,7 +59,7 @@ export const getFilmography  = async(input, role="Director") => {
 
 export const searchMovie = async (movieTitle) => {
   //format movieTitles like 'The+Interpreter'
-  const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&language=en-US&query=${movieTitle.replace(' ','%20')}&page=1&include_adult=false`
+  const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${movieTitle.replace(' ','%20')}&page=1&include_adult=false`
   const movieResults = await fetch(searchUrl, {
     method: 'GET',
   })
@@ -67,7 +68,7 @@ export const searchMovie = async (movieTitle) => {
 
 export const getMovieCredits = async (input) => {
   let searchVar = (input === typeof 'string') ? await (searchMovie(input)).then(resp => {return(resp.results[0].id)}) : input
-  const credits_url = `https://api.themoviedb.org/3/movie/${searchVar}/credits?api_key=${api_key}&language=en-US`
+  const credits_url = `https://api.themoviedb.org/3/movie/${searchVar}/credits?api_key=${API_KEY}&language=en-US`
   let credits = await fetch(credits_url, {
     method: 'GET',
   })

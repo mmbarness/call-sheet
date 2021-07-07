@@ -18,14 +18,16 @@ export const storageChecker = (searchQuery, d3type) => {
   return (searchQuery in localData) ? true : false 
 }
 
-export const fetchIcon = () => {
+export const fetchIcon = (remove = true) => {
   const bubbleContainer = document.getElementById('bubble-chart')
   let icon = (document.getElementsByClassName('loader').length > 0) ? document.getElementsByClassName('loader') : loadingIcon(bubbleContainer, true)  //same idea- passing it bubbleContainer so that it can append loading Icon to it
   if (HTMLCollection.prototype.isPrototypeOf(icon)){
       icon = icon[0]
   }
-  if (document.getElementById("bubble")){
-      document.getElementById("bubble").remove()
+  if (document.getElementById("bubble") && remove){
+    document.getElementById("bubble").remove()
+  } else if (document.getElementById("bubble") && !remove)  {
+    document.getElementById("bubble").style.display = "none";
   }
   return icon;
 };

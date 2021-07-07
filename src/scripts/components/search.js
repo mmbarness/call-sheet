@@ -5,7 +5,7 @@ import '../../styles/search.scss'
 import { deleteSVGs, fetchIcon } from "../utils/d3/d3_utils";
 import { d3Relay } from "../d3/d3Relay";
 import { clearTitle, waitOrNot } from "./bubbleStuff";
-import { addSearch } from "../utils/searchUtils";
+import { addSearch, capitalizeCorrectly, handleNoSearch, queryChecker } from "../utils/searchUtils";
 
 addSearch()
 
@@ -18,7 +18,15 @@ searchBar.addEventListener("keyup", e => {
 
 searchBar.addEventListener("keypress", async (e) => { //search functionality here
     if (e.key === "Enter"){
+        const query = capitalizeCorrectly(e.target.value)
+        let searchValid = await queryChecker(query)
+        if (searchValid.error === "none") {
+            null 
+        } else {
+            return handleNoSearch(searchBar, searchValid)
+        }
         creditsParser(e.target.value, 'Director').then(resp => { 
+            if (resp === "nothing found") {handleNoSearch()}
             manageLocalStorage({
                 cast: resp.castFamiliars,
                 crew: resp.crewFamiliars,
@@ -48,3 +56,4 @@ clearSearch.addEventListener("click", e => { //clears search bar
     clearTitle();
     deleteLocalStorage();
 })
+

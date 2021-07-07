@@ -34,7 +34,6 @@ export const loadingIcon = (bubbleContainer, bool) => {
 
 export const waitOrNot = (searchQuery) => {
     const icon = document.getElementById(`${searchQuery.replace(" ", "-")}-treemap`)
-    // debugger;
     return ((icon === null) ? true : false);
 }
 

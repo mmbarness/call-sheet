@@ -7,6 +7,7 @@ import { genCastArr, genCastObj } from "./castBuilder";
 export const allCredits = async (searchQuery, role = "Director") => { //cast and crew of every movie a director's made
     let input = searchQuery.name || searchQuery.nameId
     let filmography = await tmdb.getFilmography(input, role)
+    if (filmography === "nothing found") {return filmography}
     let filmsObj = {director: "", movies: {}}
     await new Promise(resolve => setTimeout(resolve, 1000))
     for (const id in filmography.movies) {
@@ -37,6 +38,7 @@ const filterToFamiliars = (obj) => {
 
 export const creditsParser = async (input, role = "Director") => {
     let allFilmCredits = await allCredits({ name: input }, role).then(resp => (resp))
+    if (allFilmCredits=== "nothing found") {return filmography}
     let creditsArr = (Object.values(allFilmCredits.movies))
     let cast = genCastArr(creditsArr, input)
     let castObj = genCastObj(cast)
