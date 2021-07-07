@@ -2,7 +2,7 @@ import * as d3 from 'd3'
 import { clearTitle, loadingIcon, makeBubbleContainer, titleizeBubbleChart, useIcon, waitOrNot } from '../components/bubbleStuff'
 import { roleHandler } from '../utils/d3/bubble_utils'
 import { clearChildren, storageChecker } from '../utils/d3/d3_utils'
-
+import { hideTooltip, showTooltip } from './tooltip'
 
 export const bubbleMaker = async (searchQuery) => {
 
@@ -16,11 +16,14 @@ export const bubbleMaker = async (searchQuery) => {
     let oldChart = document.getElementById("bubble")
     if (oldChart !== null) {oldChart.remove()}
 
-    const bubbleContainer = (document.getElementById('bubble-chart')===null) ? makeBubbleContainer(true) : (document.getElementById('bubble-chart') ) //true to indicate I dont want it to return the new element
-    clearTitle();
+    const bubbleContainer = (document.getElementById('bubble-chart')===null) //true to indicate I dont want it to return the new element
+        ? makeBubbleContainer(true) 
+        : (document.getElementById('bubble-chart') ) 
+
+    clearTitle(); //delete previous chart title (director name) if one exists
     titleizeBubbleChart(searchQuery); 
 
-    const diameter = (document.getElementById("bubble-chart")).clientHeight;;
+    const diameter = (document.getElementById("bubble-chart")).clientHeight; //sets height of chart to window size
 
     const color = d3.scaleOrdinal()
         .domain(['cast', 'crew'])
@@ -40,76 +43,6 @@ export const bubbleMaker = async (searchQuery) => {
     const nodes = d3.hierarchy(dataset)
         .sum(function(d) {return d.value; });
 
-    const tooltip = d3.select("#bubble-chart")
-        .append("div")
-        .style("opacity", 0)
-        .attr("class", "tooltip")
-        .style("background-color", "black")
-        .style("border-radius", "5px")
-        .style("padding", "10px")
-        .style("color", "white")
-        .style("z-index", 1000)
-        .style("position", "absolute")
-
-    // -2- Create 3 functions to show / update (when mouse move but stay on same circle) / hide the tooltip
-    const showTooltip = (d) => {
-        let data = d.currentTarget.__data__.data
-        let linkUrl= `https://www.themoviedb.org/person/${data.id}-${data.name.replace(" ", "-")}`   
-        let imageUrl = `https://www.themoviedb.org/t/p/w1280/${data.prof_path}`
-        // link.textContent = `${data.name}, ${data.job}`
-
-        let info = () => {
-            if (data.job){
-                return (`${data.name}, ${data.job}`)
-            } else {
-                return (`${data.name}`)
-            }
-        }
-
-        clearChildren(tooltip)
-
-        tooltip
-            .transition()
-                .duration(200)
-        tooltip
-            .style("opacity", 1)
-            // .text(info())
-            .style("left", d.pageX + "px")
-            .style("top", d.pageY + "px")
-
-        const tooltipContainer = tooltip
-            .append("div")
-            .attr("class", "tooltipContainer")
-
-        const link = tooltipContainer
-            .append("a")
-            .attr("href", linkUrl)
-            .html(info())
-            .attr("id", "tooltip-link")
-            .attr("target", "_blank")
-            .attr("rel", "noopener noreferrer")
-
-        if (imageUrl !== "https://www.themoviedb.org/t/p/w1280/null"){
-            const image = tooltipContainer
-                .append("img")
-                .attr("src", imageUrl)
-                .attr("id", "tooltip-img")
-        }
-
-        const closeIt = tooltip
-            .append("span")
-            .html("&times;")
-            .on("click", hideTooltip)
-    }
-
-    const hideTooltip = (d) => {
-        clearChildren(tooltip);
-        tooltip
-            .transition()
-                // .duration(00)
-                .style("opacity", 0)
-    }
-
     const node = svg.selectAll(".node")
         .data(bubble(nodes).descendants())
         .enter()
@@ -121,6 +54,19 @@ export const bubbleMaker = async (searchQuery) => {
         .attr("transform", function(d) {
             return "translate(" + d.x + "," + d.y + ")";
         })   
+
+    const tooltip = d3.select("#bubble-chart")
+        .append("div")
+        .style("opacity", 0)
+        .attr("class", "tooltip")
+        .style("background-color", "black")
+        .style("border-radius", "5px")
+        .style("padding", "10px")
+        .style("color", "white")
+        .style("z-index", 1000)
+        .style("position", "absolute")
+
+    const ShowToolTip = e => showTooltip(e, tooltip)
 
     node.append("title")
         .text(function(d) {
@@ -138,7 +84,7 @@ export const bubbleMaker = async (searchQuery) => {
         .style("fill", function(d,i) {
             return color(d.data.group);
         })
-        .on("click", showTooltip) 
+        .on("click", ShowToolTip) 
 
     node.append("text") //crew/castmember number of appearances/collaborations
         .attr("dy", (d) =>{ 
@@ -197,8 +143,6 @@ export const bubbleMaker = async (searchQuery) => {
         })
         .attr("fill", "white")
         .attr("class", "no-pointer-events");
-
-
 
     d3.select(self.frameElement)
         .style("height", diameter + "px");

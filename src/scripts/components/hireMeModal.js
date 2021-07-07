@@ -15,7 +15,7 @@ export const HireMeModal = (props) => {
         e.preventDefault
         let modal = document.getElementById('hireMeDiv')
         if (modal.style.display === "none") {modal.removeAttribute("style")}
-        isVisible? modal.className = "hire-me-container is-open" : modal.className = "hire-me-container close"
+        isVisible? modal.className = "hire-me-container close" : modal.className = "hire-me-container is-open"
         isVisible = !isVisible
     }
 
@@ -61,12 +61,11 @@ export const HireMeModal = (props) => {
             type: "class", 
             text: "hire-me-container"}
         let hireMeDiv = (addDiv(addDivParams))
-        hireMeDiv.setAttribute('id', 'hireMeDiv')        
+        hireMeDiv.setAttribute('id', 'hireMeDiv')    
         return hireMeDiv
     }
     let openBtn = openModalBtn() 
     let hireMeContainer = addHireDiv()
     genChildElements(hireMeContainer)
-    hireMeContainer.style.display = "none";
 }
 
