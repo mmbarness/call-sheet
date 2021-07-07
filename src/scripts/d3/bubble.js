@@ -55,6 +55,7 @@ export const bubbleMaker = async (searchQuery) => {
     const showTooltip = (d) => {
         let data = d.currentTarget.__data__.data
         let linkUrl= `https://www.themoviedb.org/person/${data.id}-${data.name.replace(" ", "-")}`   
+        let imageUrl = `https://www.themoviedb.org/t/p/w1280/${data.prof_path}`
         // link.textContent = `${data.name}, ${data.job}`
 
         let info = () => {
@@ -76,14 +77,24 @@ export const bubbleMaker = async (searchQuery) => {
             .style("left", d.pageX + "px")
             .style("top", d.pageY + "px")
 
-        const link = tooltip
+        const tooltipContainer = tooltip
+            .append("div")
+            .attr("class", "tooltipContainer")
+
+        const link = tooltipContainer
             .append("a")
             .attr("href", linkUrl)
             .html(info())
             .attr("id", "tooltip-link")
             .attr("target", "_blank")
             .attr("rel", "noopener noreferrer")
-        
+
+        if (imageUrl !== "https://www.themoviedb.org/t/p/w1280/null"){
+            const image = tooltipContainer
+                .append("img")
+                .attr("src", imageUrl)
+                .attr("id", "tooltip-img")
+        }
 
         const closeIt = tooltip
             .append("span")
@@ -164,7 +175,6 @@ export const bubbleMaker = async (searchQuery) => {
             return `${d.data.name.substring(0, d.r / 3)}`;
         })
         .attr("font-size", function(d){
-            // debugger;
             if (d.data.role !== "Acting") {
                 return d.r/5;
             } else {

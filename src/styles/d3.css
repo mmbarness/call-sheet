@@ -26,10 +26,17 @@
     display: flex;
     flex-flow: row;
     justify-content: space-between;
+    /* width: 5em; */
+}
+
+.tooltipContainer {
+    width: 99%;
+    display: flex;
+    flex-flow: column;
 }
 
 .tooltip > span {
-    margin-left: 1.5em;
+    margin-left: .25em;
 }
 
 .tooltip > span:hover {
@@ -40,10 +47,18 @@
 #tooltip-link {
     text-decoration: none;
     color: white;
+    text-align: center;
 }
 
 #tooltip-link:hover{
     color: #bad1db;
+}
+
+#tooltip-img{
+    width: 5em;
+    align-self: center;
+    border-radius: .25em;
+    margin-top: .5em;
 }
 
 #treemap-icons-container > .d3div {
