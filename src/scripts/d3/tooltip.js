@@ -57,5 +57,4 @@ export const showTooltip = (d, tooltip) => {
         .html("&times;")
         .on("click", hideTooltip)
 
-
 }

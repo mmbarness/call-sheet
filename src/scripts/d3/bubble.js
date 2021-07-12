@@ -2,6 +2,7 @@ import * as d3 from 'd3'
 import { clearTitle, loadingIcon, makeBubbleContainer, titleizeBubbleChart, useIcon, waitOrNot } from '../components/bubbleStuff'
 import { roleHandler } from '../utils/d3/bubble_utils'
 import { clearChildren, storageChecker } from '../utils/d3/d3_utils'
+import { legend } from './legend'
 import { hideTooltip, showTooltip } from './tooltip'
 
 export const bubbleMaker = async (searchQuery) => {
@@ -87,6 +88,7 @@ export const bubbleMaker = async (searchQuery) => {
         .style("fill", function(d,i) {
             return color(d.data.group);
         })
+        .attr("class", d => `${d.data.group}-node`)
         .on("click", ShowToolTip) 
 
     node.append("text") //crew/castmember number of appearances/collaborations
@@ -137,7 +139,6 @@ export const bubbleMaker = async (searchQuery) => {
         .attr("dy", "1.5em")
         .style("text-anchor", "middle")
         .text(function(d) {
-            // return roleHandler(d)
             if (d.data.known_for !== "Acting") 
             return d.data.job;
         })
@@ -146,6 +147,8 @@ export const bubbleMaker = async (searchQuery) => {
         })
         .attr("fill", "white")
         .attr("class", "no-pointer-events");
+
+    legend({svg, color, node})
 
     d3.select(self.frameElement)
         .style("height", diameter + "px");
