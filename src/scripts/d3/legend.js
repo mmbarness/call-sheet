@@ -39,6 +39,8 @@ export const legend = ({svg, color, node}) => {
         .enter()
         .append("g")
         .attr("class", "legend-nodes")
+        .on("mouseover", e => highlighter({svg, e}))
+        .on("mouseout", e => highlighter({svg, e}))
 
     legendNode.append("circle")
         .attr("dataset", d => d)
@@ -47,8 +49,8 @@ export const legend = ({svg, color, node}) => {
         .attr("cy", function(d,i){ return 20 + i*(size+15)}) // 100 is where the first dot appears. 25 is the distance between dots
         .attr("r", 15)
         .style("fill", function(d){ return color(d)})
-        .on("mouseover", e => highlighter({svg, e}))
-        .on("mouseout", e => highlighter({svg, e}))
+        // .on("mouseover", e => highlighter({svg, e}))
+        // .on("mouseout", e => highlighter({svg, e}))
 
     legendNode.append("text")
         .attr('class', 'legend-text')
