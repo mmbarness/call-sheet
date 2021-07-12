@@ -45,16 +45,14 @@ export const legend = ({svg, color, node}) => {
     legendNode.append("circle")
         .attr("dataset", d => d)
         .attr('class', 'legend-dot')
-        .attr("cx", 1000)
+        .attr("cx", 750)
         .attr("cy", function(d,i){ return 20 + i*(size+15)}) // 100 is where the first dot appears. 25 is the distance between dots
         .attr("r", 15)
         .style("fill", function(d){ return color(d)})
-        // .on("mouseover", e => highlighter({svg, e}))
-        // .on("mouseout", e => highlighter({svg, e}))
 
     legendNode.append("text")
         .attr('class', 'legend-text')
-        .attr("x", 1000 + size*.9)
+        .attr("x", 750 + size*.9)
         .attr("y", function(d,i){ return i * (size + 10) + (size/2) + 10}) // 100 is where the first dot appears. 25 is the distance between dots
         .style("fill", function(d){ return color(d)})
         .text(function(d){ return d})
