@@ -13,6 +13,7 @@ import './styles/index.scss'
 import './styles/d3.css'
 import { deleteLocalStorage, manageLocalStorage } from "./scripts/utils/browser_utils";
 import { HireMeModal } from "./scripts/components/hireMeModal";
+import { infoModal } from "./scripts/components/info_modal";
 
 window.onload = () => {
     deleteLocalStorage();
@@ -20,6 +21,7 @@ window.onload = () => {
 
 const pageLoad = (directors) => {
     
+    infoModal()
     HireMeModal()
 
     directors.forEach(director => {
