@@ -5,6 +5,7 @@ addDiv({
     type: "id",
     text: "d3-container"
 })
+import { siteTitle } from "./scripts/components/site-title";
 import { creditsParser } from "./scripts/tmdb/data_builder";
 import { treeMap } from "./scripts/d3/treemap";
 import './scripts/components/search'
