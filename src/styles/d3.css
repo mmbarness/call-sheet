@@ -77,6 +77,11 @@
 
 #title-link{
     text-decoration: none;
+    color: #537e91
+}
+
+#title-link:hover{
+    color: #a4d7ed;
 }
 
 #bubble-chart-title {
