@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import { makeBubbleContainer } from '../components/bubbleStuff'
+import { makeBubbleContainer } from './bubbleStuff'
 import { colorSetter, storageChecker } from '../utils/d3/d3_utils'
 import * as treemapUtils from '../utils/d3/treemap_utils'
 

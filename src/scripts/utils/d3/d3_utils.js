@@ -1,6 +1,6 @@
 import { local } from "d3";
 import { bubbleMaker } from "../../d3/bubble";
-import { loadingIcon } from "../../components/bubbleStuff";
+import { loadingIcon } from "../../d3/bubbleStuff";
 
 export const deleteSVGs = (eles) => {
   eles.forEach((div) => document.getElementById(div.id).remove())

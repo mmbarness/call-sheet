@@ -1,14 +1,11 @@
 import { addDiv } from "../utils/basicElementGen"
 
-export const siteTitle = () => {
+export const siteTitle = (props) => {
 
-    const addTitle = addDiv({
-        append: (div) => document.body.appendChild(div),
+    addDiv({
+        append: (div) => props.container.appendChild(div),
         type: "id", 
         text: "siteTitle",
         innerText: 'Call Sheet'
     })
-
 }
-
-siteTitle();

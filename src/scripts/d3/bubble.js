@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import { clearTitle, loadingIcon, makeBubbleContainer, titleizeBubbleChart, useIcon, waitOrNot } from '../components/bubbleStuff'
+import { clearTitle, loadingIcon, makeBubbleContainer, titleizeBubbleChart, useIcon, waitOrNot } from './bubbleStuff'
 import { roleHandler } from '../utils/d3/bubble_utils'
 import { clearChildren, storageChecker } from '../utils/d3/d3_utils'
 import { legend } from './legend'

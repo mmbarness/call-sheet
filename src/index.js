@@ -1,31 +1,15 @@
 import "regenerator-runtime/runtime";
-import {addDiv} from "./scripts/utils/basicElementGen";
-addDiv({
-    append: (div) => document.body.appendChild(div),
-    type: "id",
-    text: "d3-container"
-})
-import { siteTitle } from "./scripts/components/site-title";
-import { creditsParser } from "./scripts/tmdb/data_builder";
-import { treeMap } from "./scripts/d3/treemap";
-import './scripts/components/search'
-import './scripts/components/typeahead'
 import './styles/index.scss'
 import './styles/d3.css'
+import {addDiv} from "./scripts/utils/basicElementGen";
 import { deleteLocalStorage, manageLocalStorage } from "./scripts/utils/browser_utils";
-import { HireMeModal } from "./scripts/components/hireMeModal";
+import { creditsParser } from "./scripts/tmdb/data_builder";
+import { genTopBar } from "./scripts/components/top_bar";
 import { infoModal } from "./scripts/components/info_modal";
+import { treeMap } from "./scripts/d3/treemap";
 import { bubbleMaker } from "./scripts/d3/bubble";
 
-window.onload = () => {
-    deleteLocalStorage();
-}
-
 const directorPreload = (directors) => {
-    
-    infoModal()
-    HireMeModal()
-
     directors.forEach(director => {
         creditsParser(director, 'Director').then(resp => { 
             manageLocalStorage({
@@ -42,9 +26,26 @@ const directorPreload = (directors) => {
 
 // directorPreload(['michael mann' ])
 const pageLoader = async () => {
-    directorPreload(['claire denis', 'Spike Lee', 'martin scorsese' ])
+    infoModal();
+
+    addDiv({
+        append: (div) => document.body.appendChild(div),
+        type: "id",
+        text: "d3-container"
+    })
+
+    directorPreload(['claire denis', ])
+
     await new Promise(resolve => setTimeout(resolve, 2000))
-    bubbleMaker('Spike Lee')
+
+    bubbleMaker('claire denis')
 }
 
-pageLoader();
+window.onload = () => {
+    deleteLocalStorage();
+
+    genTopBar();
+
+    pageLoader();
+}
+

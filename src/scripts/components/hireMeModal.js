@@ -1,13 +1,10 @@
-// import { EmailMe } from '../contact/email_form';
-// import { GithubSVG } from '../svg/github';
-// import { LinkedInSVG } from '../svg/linkedIn';
-import '../../styles/hireMeModal.css'
+import '../../styles/topBar/hireMeModal.css'
 import { addDiv } from "../utils/basicElementGen";
 import { EmailMe } from './email_me';
 import { renderGithub } from './svg/github';
 import { renderLinkedIn } from './svg/linkedIn';
 
-export const HireMeModal = (props) => {
+export const hireMeModal = (props) => {
 
     let isVisible = false;
 
@@ -19,12 +16,12 @@ export const HireMeModal = (props) => {
         isVisible = !isVisible
     }
 
-    const openModalBtn = () => {
+    const openModalBtn = (container) => {
         let btn = document.createElement('button')
         btn.addEventListener("click", handleClick);
         btn.setAttribute('id', 'hire-me-btn')
         btn.innerText = "Hire Me!"
-        document.body.appendChild(btn)
+        container.appendChild(btn)
     }
 
     const genChildElements = (container) => {
@@ -56,17 +53,17 @@ export const HireMeModal = (props) => {
         renderGithub(svgContainer);
     }
 
-    const addHireDiv = () => {
+    const addHireDiv = (container) => {
         const addDivParams = {
-            append: (div) => document.body.appendChild(div),
+            append: (div) => container.appendChild(div),
             type: "class", 
             text: "hire-me-container"}
         let hireMeDiv = (addDiv(addDivParams))
         hireMeDiv.setAttribute('id', 'hireMeDiv')    
         return hireMeDiv
     }
-    let openBtn = openModalBtn() 
-    let hireMeContainer = addHireDiv()
+    let openBtn = openModalBtn(props.container) 
+    let hireMeContainer = addHireDiv(props.container)
     genChildElements(hireMeContainer)
 
     document.addEventListener("click", e => {

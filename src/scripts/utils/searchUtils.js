@@ -9,18 +9,19 @@ export const addClearSearchButton = (searchContainer) => {
     clearSearchButton.style.display = "none"
     searchContainer.appendChild(clearSearchButton)
 }
-export const addSearch = () => {
+export const addSearch = (props) => {
     const makeSearch = document.createElement('input');
     makeSearch.setAttribute("type", "search")
     makeSearch.setAttribute("id", "searchBar")
     makeSearch.setAttribute("placeholder", "look up a director - enter to search")
     const addDivParams = {
-        append: (div) => document.body.appendChild(div),
+        append: (div) => props.container.appendChild(div),
         type: "class", 
         text: "search-container"}
     let searchContainer = addDiv(addDivParams)
     searchContainer.appendChild(makeSearch);
     addClearSearchButton(searchContainer);
+    return makeSearch
 }
 
 export const handleNoSearch = async (searchBar, errorObj) => {
