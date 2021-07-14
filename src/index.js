@@ -24,7 +24,6 @@ const directorPreload = (directors) => {
 
 }
 
-// directorPreload(['michael mann' ])
 const pageLoader = async () => {
     infoModal();
 
