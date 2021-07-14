@@ -34,7 +34,7 @@ const pageLoader = async () => {
         text: "d3-container"
     })
 
-    directorPreload(['claire denis', ])
+    directorPreload(['claire denis','michael mann', 'spike lee' ])
 
     await new Promise(resolve => setTimeout(resolve, 2000))
 
