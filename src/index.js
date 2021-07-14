@@ -42,9 +42,9 @@ const directorPreload = (directors) => {
 
 // directorPreload(['michael mann' ])
 const pageLoader = async () => {
-    directorPreload(['michael mann', 'claire denis', 'martin scorsese', 'Spike Lee', 'kathryn bigelow' ])
+    directorPreload(['claire denis', 'Spike Lee', 'martin scorsese' ])
     await new Promise(resolve => setTimeout(resolve, 2000))
-    bubbleMaker('michael mann')
+    bubbleMaker('Spike Lee')
 }
 
 pageLoader();
