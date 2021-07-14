@@ -6,6 +6,6 @@
 
 #siteTitle{
     margin: .3em .75em;
-    font-size: 3em;
+    font-size: clamp(1em, 2.5em, 3em);
     color: #537e91;
 }
