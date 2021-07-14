@@ -75,9 +75,14 @@
     height: calc(100vh - 100px); /** output container is small for display */ 
 }
 
+#title-link{
+    text-decoration: none;
+}
+
 #bubble-chart-title {
     text-align: center;
     font-size: 3vmin;
+    text-decoration: none;
 }
 
 .legend-text{

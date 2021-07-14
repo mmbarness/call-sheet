@@ -8,13 +8,22 @@ export const makeBubbleContainer = (bool) => {
     return (bool ? bubbleContainer : null )
 }
 
-export const titleizeBubbleChart = (title) => {
+export const titleizeBubbleChart = ({searchQuery, directorInfo}) => {
     const bubbleContainer = document.getElementById('bubble-chart');
     const titleEle = document.createElement('h2');
     titleEle.setAttribute('id', 'bubble-chart-title')
     titleEle.setAttribute('class', 'd3div')
-    titleEle.textContent = title
-    bubbleContainer.insertAdjacentElement('afterbegin', titleEle);
+    titleEle.textContent = searchQuery
+
+    let linkUrl= `https://www.themoviedb.org/person/${directorInfo.info.id}-${directorInfo.name.replace(" ", "-")}`  
+    const titleLink = document.createElement('a');
+    titleLink.setAttribute('id', "title-link");
+    titleLink.href = linkUrl
+    titleLink.target = "_blank";
+    titleLink.rel = "noopener noreferrer"
+
+    titleLink.appendChild(titleEle)
+    bubbleContainer.insertAdjacentElement('afterbegin', titleLink);
 }
 
 export const clearTitle = () => {

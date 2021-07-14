@@ -24,7 +24,8 @@ export const bubbleMaker = async (searchQuery) => {
         : (document.getElementById('bubble-chart') ) 
 
     clearTitle(); //delete previous chart title (director name) if one exists
-    titleizeBubbleChart(searchQuery); 
+    const directorInfo = localData[0]
+    titleizeBubbleChart({searchQuery, directorInfo}); 
 
     const diameter = (document.getElementById("bubble-chart")).clientHeight; //sets height of chart to window size
 
