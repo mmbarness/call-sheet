@@ -14,12 +14,13 @@ import './styles/d3.css'
 import { deleteLocalStorage, manageLocalStorage } from "./scripts/utils/browser_utils";
 import { HireMeModal } from "./scripts/components/hireMeModal";
 import { infoModal } from "./scripts/components/info_modal";
+import { bubbleMaker } from "./scripts/d3/bubble";
 
 window.onload = () => {
     deleteLocalStorage();
 }
 
-const pageLoad = (directors) => {
+const directorPreload = (directors) => {
     
     infoModal()
     HireMeModal()
@@ -38,5 +39,11 @@ const pageLoad = (directors) => {
 
 }
 
-// pageLoad(['michael mann' ])
-pageLoad(['michael mann', 'claire denis', 'martin scorsese', 'Spike Lee', 'kathryn bigelow' ])
+// directorPreload(['michael mann' ])
+const pageLoader = async () => {
+    directorPreload(['michael mann', 'claire denis', 'martin scorsese', 'Spike Lee', 'kathryn bigelow' ])
+    await new Promise(resolve => setTimeout(resolve, 2000))
+    bubbleMaker('michael mann')
+}
+
+pageLoader();

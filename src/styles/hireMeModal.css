@@ -115,7 +115,7 @@
     height: 2em;
     align-self: flex-end;
     position: absolute;
-    top: 0;
+    top: .5em;
     right: 0;
     margin: .5em;
     /* width: 5em;

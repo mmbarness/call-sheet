@@ -61,7 +61,7 @@ export const infoModal = (props) => {
         listEleOne.innerText = "Use the search bar to search for any film director you like."
         listEleOne.setAttribute('class','info-list-ele')
         const listEleTwo = document.createElement('li')
-        listEleTwo.innerText = "A few of my favorite directors are preloaded for you to the left—click on those to get a sense of what this vizualization produces."
+        listEleTwo.innerText = "A few of my favorite directors are preloaded for you to the left—click on those if you're curious!"
         listEleTwo.setAttribute('class','info-list-ele')
         const listEleThree = document.createElement('li')
         listEleThree.innerText = "What you'll see displayed represents those cast and crew members with whom the director's worked with more than once. The size of each bubble corresponds to the number of times they've collaborated. Make sense?"
