@@ -16,7 +16,8 @@ Home Court utilizes React and Redux to create the user interface and populate it
 * Builds a JSON dataset from the tmdb api call that is then relied upon by D3 to generate the bubble chart that is the cornerstone of the website.
 * Custom HTML element generation functions, like the one shown below. (I would argue) clever structuring to enable clear and effective customization of, in this case, the div being generated, so that repetitive lines needs not be written to set the newly created element where it needs to be placed, to set its distinguishing id's or classnames, etc. 
 
-``` const addDiv = ({append, type, text, innerText = false}) => { 
+```
+ const addDiv = ({append, type, text, innerText = false}) => { 
         const newDiv = document.createElement('div');
         newDiv.setAttribute(`${type}`, `${text}`)
         append(newDiv);
