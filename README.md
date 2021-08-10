@@ -15,4 +15,4 @@ Home Court utilizes React and Redux to create the user interface and populate it
 * Entirely custom search feature with regex testing of queries for robust error prevention.
 * Builds a JSON dataset from the tmdb api call that is then relied upon by D3 to generate the bubble chart that is the cornerstone of the website.
 
-![Image of Call Sheet](https://call-sheet.s3.amazonaws.com/callSheet.gif)
+![Image of Call Sheet](https://call-sheet.s3.amazonaws.com/Call-Sheet-SS.png)
