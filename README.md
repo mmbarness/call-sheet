@@ -6,8 +6,6 @@ Data visualizer meant to illustrate any film director’s closest collaborators.
 
 Intended to give the user a more complete picture of film director's patterns in collaboration. Through the bubble chart, the website renders in visual language the working habits of a chosen director, revealing whether they tend to work with the same cast and crew or not. 
 
-Home Court was built with Google Maps as the centerpiece. Upcoming events will dynamically render onto a list based on your current location or wherever the user navigates to on Google Maps. Joining and unjoining an event is a frictionless process which can be executed with a single click. Users can also host events by pinning a location onto the map and completing a single form.
-
 ## Stack: Node/D3/VanillaJS
 
 Home Court utilizes React and Redux to create the user interface and populate it with the appropriate data. Home Court utilizes CSS to style all of its React components. 
