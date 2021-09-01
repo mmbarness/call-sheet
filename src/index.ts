@@ -9,8 +9,8 @@ import { infoModal } from "./scripts/components/info_modal";
 import { treeMap } from "./scripts/d3/treemap";
 import { bubbleMaker } from "./scripts/d3/bubble";
 
-const directorPreload = (directors) => {
-    directors.forEach(director => {
+const directorPreload = (directors :string[]) => {
+    directors.forEach((director :string) => {
         creditsParser(director, 'Director').then(resp => { 
             manageLocalStorage({
                 cast: resp.castFamiliars,
@@ -28,7 +28,7 @@ const pageLoader = async () => {
     infoModal();
 
     addDiv({
-        append: (div) => document.body.appendChild(div),
+        append: (div :HTMLElement) => document.body.appendChild(div),
         type: "id",
         text: "d3-container"
     })

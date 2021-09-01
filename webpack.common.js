@@ -4,7 +4,7 @@ const { node } = require("webpack");
 const outputDir = "./dist";
 
 module.exports = {
-  entry: './src/index.js', 
+  entry: './src/index.ts', 
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: "main.js",
@@ -24,6 +24,11 @@ module.exports = {
             exclude: /node_modules/,
           }, // if we were using React.js, we would include "react"
         },
+      },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
