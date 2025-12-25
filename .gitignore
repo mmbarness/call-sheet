@@ -1,3 +1,6 @@
 /node_modules/
 secret.js
 call-sheet.code-workspace
+
+# Review sandbox - external repos pulled here
+/reviews/
